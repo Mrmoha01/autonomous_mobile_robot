@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install tools
+        run: pip install flake8 pytest numpy opencv-python-headless pyyaml xacro
+
+      - name: Lint Python
+        run: flake8 --max-line-length 100 amr_perception amr_navigation amr_gazebo amr_bringup tools
+
+      - name: Validate XML, YAML and xacro
+        run: python tools/validate.py
+
+      - name: Unit tests
+        run: cd amr_perception && python -m pytest -q

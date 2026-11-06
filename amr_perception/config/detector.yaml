@@ -1,0 +1,12 @@
+object_detector:
+  ros__parameters:
+    target_frame: map        # use "odom" if you run without SLAM
+    min_area: 60.0           # minimum blob size in pixels
+    lidar_window_deg: 2.5    # +/- window around the blob bearing used for the range
+    max_range: 7.0           # ignore detections further than this [m]
+    object_radius: 0.15      # LiDAR hits the surface; marker is placed this much deeper [m]
+    merge_distance: 0.6      # detections closer than this belong to the same object [m]
+    min_hits: 3              # detections needed before an object is shown
+    label_red: ball
+    label_green: barrel
+    label_blue: box
